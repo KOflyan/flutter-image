@@ -13,10 +13,8 @@ RUN apt-get install git unzip ca-certificates curl wget xz-utils zip default-jdk
     && apt-get autoremove -y
 
 # Latest android sdk
-RUN wget -O tools.zip ${ANDROID_SDK_URL}
-RUN unzip -u tools.zip -d ${ANDROID_HOME}
-RUN wget -O platform-tools.zip ${ANDROID_PLATFORM_TOOLS}
-RUN unzip platform-tools.zip -d ${ANDROID_HOME}
+RUN wget -O tools.zip ${ANDROID_SDK_URL} && unzip tools.zip -d ${ANDROID_HOME}
+RUN wget -O platform-tools.zip ${ANDROID_PLATFORM_TOOLS} && unzip platform-tools.zip -d ${ANDROID_HOME}
 
 # Stable flutter sdk
 RUN git clone -b stable https://github.com/flutter/flutter.git ${FLUTTER_HOME}
