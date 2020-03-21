@@ -5,8 +5,6 @@ ENV ANDROID_HOME="/usr/lib/android-sdk"
 ENV ANDROID_SDK_URL="https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip"
 ENV ANDROID_PLATFORM_TOOLS_URL="https://dl.google.com/android/repository/platform-tools-latest-linux.zip"
 
-########################### Fetch dependencies ###########################
-# ========================================================================
 RUN apt-get update && apt-get upgrade
 RUN apt-get install git unzip ca-certificates curl zip default-jdk-headless -y --no-install-recommends \
     && apt-get clean -y \
@@ -18,10 +16,7 @@ RUN curl ${ANDROID_PLATFORM_TOOLS_URL} -L --output platform-tools.zip && ls && u
 
 # Stable flutter sdk
 RUN git clone -b stable https://github.com/flutter/flutter.git ${FLUTTER_HOME}
-# ========================================================================
 
-########################### Install & configure ###########################
-# ========================================================================
 ENV PATH="${FLUTTER_HOME}/bin:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform_tools:${PATH}"
 
 # Accept all licenses
@@ -30,6 +25,5 @@ RUN flutter config --no-analytics
 
 # Fetch dependencies
 RUN flutter precache
-# ========================================================================
 
 ENTRYPOINT ["flutter"]
